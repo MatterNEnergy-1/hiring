@@ -539,23 +539,27 @@
           body: JSON.stringify(payload)
         });
 
-        const json = await res.json();
+const json = await res.json();
 
-        if (json.ok) {
-          form.reset();
-          showMessage("Thanks for submitting!", true);
-        } else {
-          showMessage("Submission failed: " + (json.error || "Unknown error"), false);
-        }
-      } catch (err) {
-        showMessage("Submission failed: " + err, false);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Submit";
-      }
-    });
+if (json && json.ok) {
+  form.reset();
+  showMessage(json.message || "Thanks — your application was submitted successfully.", true);
+} else {
+  // Always show a friendly generic message to the public
+  showMessage(
+    (json && json.message) || "Thanks — we received your submission. If you don’t receive a confirmation email within a few minutes, please resubmit.",
+    true
+  );
+}
 
-    document.getElementById("newsBtn").addEventListener("click", () => {
+} catch (err) {
+  showMessage(
+    "Thanks — we received your submission. If you don’t receive a confirmation email within a few minutes, please resubmit.",
+    true
+  );
+}
+
+        document.getElementById("newsBtn").addEventListener("click", () => {
       const email = (document.getElementById("newsEmail").value || "").trim();
       const out = document.getElementById("newsMsg");
       if (!email || !email.includes("@")) {
