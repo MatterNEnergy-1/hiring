@@ -200,9 +200,6 @@
     <div class="container heroInner">
       <h1 class="heroTitle">Join Our Team</h1>
       <p class="heroSub">
-        Matter + Energy is a tech company built for people who want their work to matter. We help government and enterprise clients
-        harness AI, cloud, and data to solve complex, high-stakes problems.
-        <br><br>
         Submit your application below. You’ll receive a confirmation email after submission.
       </p>
     </div>
@@ -237,13 +234,15 @@
               <input id="phone" name="phone" autocomplete="tel" placeholder="(Optional) Phone number" />
             </div>
 
+            <!-- ✅ UPDATED ROLE OPTIONS -->
             <div class="field">
               <label for="role">Field of Interest</label>
               <select id="role" name="role" required>
                 <option value="">Select…</option>
-                <option>Analyst</option>
-                <option>Engineer</option>
-                <option>Project Manager</option>
+                <option>Data and Automation</option>
+                <option>Growth Marketing</option>
+                <option>Software Engineering</option>
+                <option>MLOps / AI Infrastructure</option>
                 <option>Other</option>
               </select>
             </div>
@@ -335,7 +334,6 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // Public-facing message (no technical details)
       const GENERIC_MSG =
         "Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.";
 
@@ -383,11 +381,9 @@
           form.reset();
           showMessage(json.message || "Thanks — your application was submitted successfully.", true);
         } else {
-          // Never show internal errors publicly
           showMessage((json && json.message) || GENERIC_MSG, true);
         }
       } catch (err) {
-        // Never show technical errors publicly
         showMessage(GENERIC_MSG, true);
       } finally {
         btn.disabled = false;
