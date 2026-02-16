@@ -392,12 +392,6 @@
               <div class="errText" id="startErr">Please select your available start date.</div>
             </div>
 
-            <div class="field">
-              <label for="linkedin">LinkedIn Profile</label>
-              <input id="linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/…" inputmode="url" />
-              <div class="errText" id="linkedinErr">Please enter a valid LinkedIn URL (optional).</div>
-            </div>
-
             <!-- Resume Upload (PDF Only). No “Resume Link” section. -->
             <div class="field">
               <label for="resumeFile">Resume Upload (PDF Only)</label>
@@ -473,7 +467,6 @@
     const stateEl     = document.getElementById("state");
     const startEl     = document.getElementById("startDate");
     const startBtn    = document.getElementById("startDateBtn");
-    const linkedinEl  = document.getElementById("linkedin");
     const resumeEl    = document.getElementById("resumeFile");
 
     const firstErr = document.getElementById("firstErr");
@@ -484,7 +477,6 @@
     const cityErr  = document.getElementById("cityErr");
     const stateErr = document.getElementById("stateErr");
     const startErr = document.getElementById("startErr");
-    const linkedinErr = document.getElementById("linkedinErr");
     const resumeErr = document.getElementById("resumeErr");
 
     function showMessage(text, ok=true) {
@@ -520,18 +512,6 @@
       return digits.length >= 10 && digits.length <= 15;
     }
 
-    function isValidLinkedIn(v) {
-      const s = String(v || "").trim();
-      if (!s) return true; // optional
-      try {
-        const u = new URL(s);
-        const host = u.hostname.toLowerCase();
-        return host.endsWith("linkedin.com");
-      } catch {
-        return false;
-      }
-    }
-
     function isPdfFile(file) {
       if (!file) return false;
       const nameOk = /\.pdf$/i.test(file.name || "");
@@ -559,7 +539,6 @@
     // Light “live” validation
     emailEl.addEventListener("blur", () => setInvalid(emailEl, emailErr, !isValidEmail(emailEl.value)));
     phoneEl.addEventListener("blur", () => setInvalid(phoneEl, phoneErr, !isValidPhone(phoneEl.value)));
-    linkedinEl.addEventListener("blur", () => setInvalid(linkedinEl, linkedinErr, !isValidLinkedIn(linkedinEl.value)));
 
     resumeEl.addEventListener("change", () => {
       const file = resumeEl.files && resumeEl.files[0];
@@ -583,7 +562,6 @@
       setInvalid(cityEl, cityErr, false);
       setInvalid(stateEl, stateErr, false);
       setInvalid(startEl, startErr, false);
-      setInvalid(linkedinEl, linkedinErr, false);
       setInvalid(resumeEl, resumeErr, false);
 
       // Validate required fields
@@ -601,8 +579,6 @@
       if (!String(stateEl.value || "").trim())     { setInvalid(stateEl, stateErr, true); hasErrors = true; }
 
       if (!String(startEl.value || "").trim())     { setInvalid(startEl, startErr, true); hasErrors = true; }
-
-      if (!isValidLinkedIn(linkedinEl.value))      { setInvalid(linkedinEl, linkedinErr, true); hasErrors = true; }
 
       const file = resumeEl.files && resumeEl.files[0];
       const MAX_BYTES = 5 * 1024 * 1024;
@@ -627,7 +603,6 @@
           role:      roleEl.value,
           notes:     (document.getElementById("notes").value || ""),
           phone:     (phoneEl.value || ""),
-          linkedin:  (linkedinEl.value || ""),
           source:    "Website",
 
           // NEW fields requested
