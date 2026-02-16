@@ -213,6 +213,12 @@
           <div class="kicker"><span class="kickerBar"></span>Apply</div>
 
           <form id="appForm">
+            <!-- Honeypot (bots fill this; humans never see it) -->
+            <div class="field" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+              <label for="website">Website</label>
+              <input id="website" name="website" autocomplete="off" tabindex="-1" />
+            </div>
+
             <div class="row">
               <div class="field">
                 <label for="firstName">First Name</label>
@@ -307,19 +313,23 @@
   </footer>
 
   <script>
-    // ✅ After you redeploy Apps Script, paste the NEW /exec URL here.
-    // Current value set to the last URL you shared.
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzb_ouYN_axb4_jbD0mXWeCYrMPCgnrT7JAcblzUy00B_9uJiOjKqtrBdDXub5Xw6-_/exec";
 
     const form = document.getElementById("appForm");
     const msg  = document.getElementById("msg");
     const btn  = document.getElementById("submitBtn");
 
+    // --- BOT PROTECTION SETTINGS ---
+    const MIN_SECONDS_ON_PAGE = 3;     // blocks instant submits
+    const BLOCK_LINKS_IN_NOTES = true; // common spam pattern; set false to allow links
+
+    const pageLoadedAt = Date.now();
+
     function showMessage(text, ok=true) {
       msg.textContent = text;
       msg.style.display = "block";
       msg.style.borderColor = ok ? "rgba(40, 255, 120, .22)" : "rgba(255, 90, 90, .26)";
-      msg.style.background = ok ? "rgba(40, 255, 120, .10)" : "rgba(255, 90, 90, .12)";
+      msg.style.background  = ok ? "rgba(40, 255, 120, .10)" : "rgba(255, 90, 90, .12)";
     }
 
     function fileToBase64(file) {
@@ -331,15 +341,73 @@
       });
     }
 
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email || "").trim());
+    }
+
+    function isValidPhone(phone) {
+      if (!phone) return true; // optional
+      const digits = String(phone).replace(/\D/g, "");
+      return digits.length >= 10;
+    }
+
+    function notesHasLinks(notes) {
+      const s = String(notes || "").toLowerCase();
+      return s.includes("http://") || s.includes("https://") || s.includes("www.");
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const GENERIC_MSG =
-        "Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.";
-
       const fd = new FormData(form);
-      const file = fd.get("resumeFile");
 
+      // Honeypot check
+      const honey = String(fd.get("website") || "").trim();
+      if (honey) {
+        // silent-ish success message (don’t help bots)
+        showMessage("Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.", true);
+        return;
+      }
+
+      // Minimum time-on-page check
+      const elapsedSec = (Date.now() - pageLoadedAt) / 1000;
+      if (elapsedSec < MIN_SECONDS_ON_PAGE) {
+        showMessage("Please review your application for a moment, then submit again.", false);
+        return;
+      }
+
+      const firstName = String(fd.get("firstName") || "").trim();
+      const lastName  = String(fd.get("lastName") || "").trim();
+      const email     = String(fd.get("email") || "").trim();
+      const phone     = String(fd.get("phone") || "").trim();
+      const role      = String(fd.get("role") || "").trim();
+      const linkedin  = String(fd.get("linkedin") || "").trim();
+      const notes     = String(fd.get("notes") || "").trim();
+
+      // Basic validation
+      if (!firstName || !lastName) {
+        showMessage("Please enter your first and last name.", false);
+        return;
+      }
+      if (!isValidEmail(email)) {
+        showMessage("Please enter a valid email address.", false);
+        return;
+      }
+      if (!isValidPhone(phone)) {
+        showMessage("Please enter a valid phone number (minimum 10 digits).", false);
+        return;
+      }
+      if (!role) {
+        showMessage("Please select a Field of Interest.", false);
+        return;
+      }
+      if (BLOCK_LINKS_IN_NOTES && notesHasLinks(notes)) {
+        showMessage("Please remove links from Notes and try again.", false);
+        return;
+      }
+
+      const file = fd.get("resumeFile");
       if (!file || !file.name) {
         showMessage("Please attach a resume file.", false);
         return;
@@ -354,19 +422,26 @@
       btn.disabled = true;
       btn.textContent = "Submitting…";
 
+      const GENERIC_MSG =
+        "Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.";
+
       try {
         const payload = {
-          firstName: fd.get("firstName"),
-          lastName:  fd.get("lastName"),
-          email:     fd.get("email"),
-          role:      fd.get("role"),
-          notes:     fd.get("notes") || "",
-          phone:     fd.get("phone") || "",
-          linkedin:  fd.get("linkedin") || "",
-          source:    "Website",
-          fileName:  file.name,
-          mimeType:  file.type || "application/octet-stream",
-          fileBase64: await fileToBase64(file)
+          firstName,
+          lastName,
+          email,
+          role,
+          notes,
+          phone,
+          linkedin,
+          source: "Website",
+          fileName: file.name,
+          mimeType: file.type || "application/octet-stream",
+          fileBase64: await fileToBase64(file),
+
+          // Optional metadata (server can ignore)
+          clientTimeOnPageSec: Math.round(elapsedSec),
+          clientUserAgent: navigator.userAgent || ""
         };
 
         const res = await fetch(WEB_APP_URL, {
