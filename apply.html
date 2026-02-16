@@ -20,7 +20,12 @@
       --btnText:#0b1020;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 18px;
+
+      /* “Career page” vibe */
+      --cardBg: rgba(255,255,255,.04);
+      --fieldBg: rgba(0,0,0,.22);
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -29,8 +34,9 @@
       color: var(--text);
     }
     a{color:inherit;text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:0 18px}
+    .container{max-width:1120px;margin:0 auto;padding:0 18px}
 
+    /* Header (keep links intact) */
     .header{
       position: sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
@@ -53,46 +59,84 @@
     }
     .btnGhost:hover{background: rgba(255,255,255,.08)}
 
-    .hero{position:relative;overflow:hidden;border-bottom: 1px solid var(--line);min-height: 360px}
+    /* HERO (cleaner, “site-like”) */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-bottom: 1px solid var(--line);
+      min-height: 360px;
+    }
     .hero::before{
-      content:""; position:absolute; inset:0;
+      content:"";
+      position:absolute; inset:0;
       background:
-        radial-gradient(900px 420px at 10% 30%, rgba(77,126,255,.24), transparent 60%),
+        radial-gradient(900px 420px at 10% 30%, rgba(77,126,255,.22), transparent 60%),
         radial-gradient(700px 380px at 90% 20%, rgba(253,98,98,.14), transparent 55%),
-        linear-gradient(to bottom, rgba(7,9,15,.70), rgba(7,9,15,.95)),
+        linear-gradient(to bottom, rgba(7,9,15,.65), rgba(7,9,15,.96)),
         url("https://static.wixstatic.com/media/11062b_c567795db2214629b5de847016de542f~mv2.jpeg/v1/fill/w_1340,h_900,al_c,q_85,enc_avif,quality_auto/11062b_c567795db2214629b5de847016de542f~mv2.jpeg");
       background-size: cover;
-      background-position:center;
+      background-position: center;
       filter:saturate(1.05) contrast(1.05);
       transform: scale(1.02);
     }
-    .heroInner{position:relative;padding:54px 0 42px}
-    .heroTitle{margin:0;font-size:44px;line-height:1.1;letter-spacing:-.5px}
-    .heroSub{margin:14px 0 0;max-width:820px;color:var(--muted);line-height:1.65;font-size:15.5px}
+    .heroInner{position:relative;padding:68px 0 52px}
+    .heroTitle{margin:0;font-size:46px;line-height:1.06;letter-spacing:-.6px}
+    .heroSub{
+      margin:14px 0 0;
+      max-width:860px;
+      color: var(--muted);
+      line-height:1.65;
+      font-size:15.5px;
+    }
 
-    .main{padding:34px 0 70px}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:start}
+    /* Main */
+    .main{padding:36px 0 76px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      align-items:start;
+    }
+
     .panel{
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255,255,255,.03);
+      background: var(--cardBg);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .panelBody{padding:22px}
-    .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+    .panelBody{padding:24px}
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:10px
+    }
     .kickerBar{width:18px;height:2px;background:var(--accent);border-radius:99px}
 
-    form{margin-top:14px}
+    form{margin-top:8px}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .field{margin-top:12px}
-    label{display:block;font-size:13px;font-weight:600;color:rgba(245,247,255,.92);margin-bottom:7px}
+
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:600;
+      color:rgba(245,247,255,.92);
+      margin-bottom:7px
+    }
+
     input,select,textarea{
       width:100%;
       padding:12px 12px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
+      background: var(--fieldBg);
       color: var(--text);
       outline:none;
       font-family:inherit;
@@ -104,19 +148,32 @@
       box-shadow: 0 0 0 4px rgba(253,98,98,.10);
     }
     textarea{min-height:96px;resize:vertical}
+
     .hint{margin-top:8px;color:rgba(199,203,227,.8);font-size:12.5px;line-height:1.5}
 
-    .checks{margin-top:14px;display:flex;gap:10px;align-items:flex-start;color:rgba(199,203,227,.92);font-size:13px;line-height:1.45}
+    .checks{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:rgba(199,203,227,.92);
+      font-size:13px;
+      line-height:1.45
+    }
     .checks input{width:18px;height:18px;margin-top:2px}
 
     .btn{
-      margin-top:16px;width:100%;
+      margin-top:16px;
+      width:100%;
       padding:13px 14px;
-      border-radius:999px;border:0;
+      border-radius:999px;
+      border:0;
       background: var(--btn);
       color: var(--btnText);
-      font-weight:800;font-size:14px;
-      cursor:pointer;letter-spacing:.2px;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      letter-spacing:.2px;
     }
     .btn:hover{filter:brightness(.96)}
     .btn:disabled{opacity:.6;cursor:not-allowed}
@@ -132,15 +189,50 @@
       background: rgba(255,255,255,.04);
     }
 
+    /* Inline validation */
+    .errText{
+      margin-top:8px;
+      font-size:12.5px;
+      color: rgba(255, 160, 160, .95);
+      display:none;
+      line-height:1.4;
+    }
+    .isInvalid{
+      border-color: rgba(255, 90, 90, .70) !important;
+      box-shadow: 0 0 0 4px rgba(255, 90, 90, .10) !important;
+    }
+
+    /* Start date input with “calendar icon” */
+    .dateWrap{position:relative}
+    .dateInput{
+      padding-right:44px; /* room for icon */
+    }
+    .dateBtn{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform: translateY(-50%);
+      width:30px;height:30px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+    .dateBtn:hover{background: rgba(255,255,255,.08)}
+    .dateBtn svg{width:16px;height:16px;opacity:.92}
+
+    /* Aside card */
     .asideHero{
       position:relative;
-      min-height:520px;
+      min-height:540px;
       border-radius: var(--radius);
       overflow:hidden;
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
       background:
-        linear-gradient(to bottom, rgba(7,9,15,.25), rgba(7,9,15,.95)),
+        linear-gradient(to bottom, rgba(7,9,15,.22), rgba(7,9,15,.95)),
         url("https://static.wixstatic.com/media/11062b_62f0356712544a87b392417662c4658df000.jpg/v1/fill/w_1340,h_754,al_c,q_85,enc_avif,quality_auto/11062b_62f0356712544a87b392417662c4658df000.jpg");
       background-size: cover;
       background-position:center;
@@ -155,6 +247,7 @@
     .asideBadge h3{margin:0;font-size:16px;letter-spacing:-.2px}
     .asideBadge p{margin:10px 0 0;color:rgba(199,203,227,.9);font-size:13px;line-height:1.55}
 
+    /* Footer (keep links intact) */
     footer{border-top:1px solid var(--line);padding:34px 0;background: rgba(0,0,0,.18)}
     .footerGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
     .footTitle{display:flex;gap:10px;align-items:center;font-weight:800;margin-bottom:8px}
@@ -166,12 +259,12 @@
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
       .asideHero{min-height:320px}
-      .heroTitle{font-size:36px}
+      .heroTitle{font-size:38px}
     }
     @media (max-width: 560px){
       .row{grid-template-columns:1fr}
       nav{display:none}
-      .heroTitle{font-size:32px}
+      .heroTitle{font-size:34px}
     }
   </style>
 </head>
@@ -184,6 +277,7 @@
         <span>Matter + Energy</span>
       </div>
 
+      <!-- keep all header links intact -->
       <nav aria-label="Primary">
         <a href="https://www.matternenergy.com/">Home</a>
         <a href="https://www.matternenergy.com/scope-of-services">Services</a>
@@ -198,7 +292,7 @@
 
   <section class="hero" role="banner" aria-label="Join Our Team">
     <div class="container heroInner">
-      <h1 class="heroTitle">Join Our Team</h1>
+      <h1 class="heroTitle">Career</h1>
       <p class="heroSub">
         Submit your application below. You’ll receive a confirmation email after submission.
       </p>
@@ -212,35 +306,33 @@
         <div class="panelBody">
           <div class="kicker"><span class="kickerBar"></span>Apply</div>
 
-          <form id="appForm">
-            <!-- Honeypot (bots fill this; humans never see it) -->
-            <div class="field" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-              <label for="website">Website</label>
-              <input id="website" name="website" autocomplete="off" tabindex="-1" />
-            </div>
-
+          <form id="appForm" novalidate>
             <div class="row">
               <div class="field">
                 <label for="firstName">First Name</label>
                 <input id="firstName" name="firstName" autocomplete="given-name" required placeholder="First name" />
+                <div class="errText" id="firstErr">Please enter your first name.</div>
               </div>
+
               <div class="field">
                 <label for="lastName">Last Name</label>
                 <input id="lastName" name="lastName" autocomplete="family-name" required placeholder="Last name" />
+                <div class="errText" id="lastErr">Please enter your last name.</div>
               </div>
             </div>
 
             <div class="field">
               <label for="email">Email Address</label>
               <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com" />
+              <div class="errText" id="emailErr">Please enter a valid email address.</div>
             </div>
 
             <div class="field">
               <label for="phone">Phone</label>
-              <input id="phone" name="phone" autocomplete="tel" placeholder="(Optional) Phone number" />
+              <input id="phone" name="phone" autocomplete="tel" placeholder="(Optional) Phone number" inputmode="tel" />
+              <div class="errText" id="phoneErr">Please enter a valid phone number (10–15 digits).</div>
             </div>
 
-            <!-- ✅ UPDATED ROLE OPTIONS (removed "Other") -->
             <div class="field">
               <label for="role">Field of Interest</label>
               <select id="role" name="role" required>
@@ -250,17 +342,69 @@
                 <option>Software Engineering</option>
                 <option>MLOps / AI Infrastructure</option>
               </select>
+              <div class="errText" id="roleErr">Please select a field of interest.</div>
+            </div>
+
+            <!-- Current Location (two-field format) -->
+            <div class="field">
+              <label>Current Location</label>
+              <div class="row">
+                <div>
+                  <input id="city" name="city" placeholder="City" autocomplete="address-level2" required />
+                  <div class="errText" id="cityErr">Please enter your city.</div>
+                </div>
+                <div>
+                  <select id="state" name="state" required autocomplete="address-level1">
+                    <option value="">State…</option>
+                    <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option>
+                    <option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option>
+                    <option value="DC">District of Columbia</option>
+                    <option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option>
+                    <option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option>
+                    <option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+                  </select>
+                  <div class="errText" id="stateErr">Please select a state.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Available Start Date with functional calendar icon -->
+            <div class="field">
+              <label for="startDate">Available Start Date</label>
+              <div class="dateWrap">
+                <input id="startDate" class="dateInput" name="startDate" type="date" required />
+                <button class="dateBtn" type="button" id="startDateBtn" aria-label="Open calendar">
+                  <!-- calendar icon -->
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M8 2v4M16 2v4"></path>
+                    <path d="M3 10h18"></path>
+                    <path d="M5 6h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="errText" id="startErr">Please select your available start date.</div>
             </div>
 
             <div class="field">
               <label for="linkedin">LinkedIn Profile</label>
-              <input id="linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/…" />
+              <input id="linkedin" name="linkedin" placeholder="https://www.linkedin.com/in/…" inputmode="url" />
+              <div class="errText" id="linkedinErr">Please enter a valid LinkedIn URL (optional).</div>
             </div>
 
+            <!-- Resume Upload (PDF Only). No “Resume Link” section. -->
             <div class="field">
-              <label for="resumeFile">Resume Upload (PDF/DOC/DOCX)</label>
-              <input id="resumeFile" name="resumeFile" type="file" accept=".pdf,.doc,.docx" required />
-              <div class="hint">Tip: PDFs under ~2–3MB work best.</div>
+              <label for="resumeFile">Resume Upload (PDF Only)</label>
+              <input id="resumeFile" name="resumeFile" type="file" accept=".pdf,application/pdf" required />
+              <div class="hint">Tip: PDFs under ~2–3MB work best. (Max 5MB.)</div>
+              <div class="errText" id="resumeErr">Please upload a PDF resume under 5MB.</div>
             </div>
 
             <div class="field">
@@ -297,6 +441,7 @@
         <div class="footTitle"><span class="brandDot" aria-hidden="true"></span><span>Matter + Energy</span></div>
         <div class="footMeta">Woman-Owned Small Business<br>Reston, VA. 20190</div>
 
+        <!-- keep all footer links intact -->
         <div class="links" aria-label="Footer links">
           <a href="https://www.matternenergy.com/scope-of-services">Services</a>
           <a href="https://www.matternenergy.com/government">Government</a>
@@ -313,23 +458,87 @@
   </footer>
 
   <script>
+    // Web App URL (as provided)
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzb_ouYN_axb4_jbD0mXWeCYrMPCgnrT7JAcblzUy00B_9uJiOjKqtrBdDXub5Xw6-_/exec";
 
     const form = document.getElementById("appForm");
     const msg  = document.getElementById("msg");
     const btn  = document.getElementById("submitBtn");
 
-    // --- BOT PROTECTION SETTINGS ---
-    const MIN_SECONDS_ON_PAGE = 3;     // blocks instant submits
-    const BLOCK_LINKS_IN_NOTES = true; // common spam pattern; set false to allow links
+    const firstNameEl = document.getElementById("firstName");
+    const lastNameEl  = document.getElementById("lastName");
+    const emailEl     = document.getElementById("email");
+    const phoneEl     = document.getElementById("phone");
+    const roleEl      = document.getElementById("role");
+    const cityEl      = document.getElementById("city");
+    const stateEl     = document.getElementById("state");
+    const startEl     = document.getElementById("startDate");
+    const startBtn    = document.getElementById("startDateBtn");
+    const linkedinEl  = document.getElementById("linkedin");
+    const resumeEl    = document.getElementById("resumeFile");
 
-    const pageLoadedAt = Date.now();
+    const firstErr = document.getElementById("firstErr");
+    const lastErr  = document.getElementById("lastErr");
+    const emailErr = document.getElementById("emailErr");
+    const phoneErr = document.getElementById("phoneErr");
+    const roleErr  = document.getElementById("roleErr");
+    const cityErr  = document.getElementById("cityErr");
+    const stateErr = document.getElementById("stateErr");
+    const startErr = document.getElementById("startErr");
+    const linkedinErr = document.getElementById("linkedinErr");
+    const resumeErr = document.getElementById("resumeErr");
 
     function showMessage(text, ok=true) {
       msg.textContent = text;
       msg.style.display = "block";
       msg.style.borderColor = ok ? "rgba(40, 255, 120, .22)" : "rgba(255, 90, 90, .26)";
-      msg.style.background  = ok ? "rgba(40, 255, 120, .10)" : "rgba(255, 90, 90, .12)";
+      msg.style.background = ok ? "rgba(40, 255, 120, .10)" : "rgba(255, 90, 90, .12)";
+    }
+
+    function setInvalid(el, errEl, on) {
+      if (!el || !errEl) return;
+      if (on) {
+        el.classList.add("isInvalid");
+        errEl.style.display = "block";
+      } else {
+        el.classList.remove("isInvalid");
+        errEl.style.display = "none";
+      }
+    }
+
+    function normalizePhoneDigits(v) {
+      return String(v || "").replace(/[^\d+]/g, "");
+    }
+
+    function isValidEmail(v) {
+      // reasonable email validation
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || "").trim());
+    }
+
+    function isValidPhone(v) {
+      const digits = String(v || "").replace(/\D/g, "");
+      if (!digits) return true; // optional
+      return digits.length >= 10 && digits.length <= 15;
+    }
+
+    function isValidLinkedIn(v) {
+      const s = String(v || "").trim();
+      if (!s) return true; // optional
+      try {
+        const u = new URL(s);
+        const host = u.hostname.toLowerCase();
+        return host.endsWith("linkedin.com");
+      } catch {
+        return false;
+      }
+    }
+
+    function isPdfFile(file) {
+      if (!file) return false;
+      const nameOk = /\.pdf$/i.test(file.name || "");
+      const type = (file.type || "").toLowerCase();
+      const typeOk = type === "application/pdf" || type === "";
+      return nameOk && typeOk;
     }
 
     function fileToBase64(file) {
@@ -341,107 +550,95 @@
       });
     }
 
-    function isValidEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(String(email || "").trim());
-    }
+    // Calendar icon behavior
+    startBtn.addEventListener("click", () => {
+      // showPicker supported in Chromium-based browsers
+      if (typeof startEl.showPicker === "function") startEl.showPicker();
+      else startEl.focus();
+    });
 
-    function isValidPhone(phone) {
-      if (!phone) return true; // optional
-      const digits = String(phone).replace(/\D/g, "");
-      return digits.length >= 10;
-    }
+    // Light “live” validation
+    emailEl.addEventListener("blur", () => setInvalid(emailEl, emailErr, !isValidEmail(emailEl.value)));
+    phoneEl.addEventListener("blur", () => setInvalid(phoneEl, phoneErr, !isValidPhone(phoneEl.value)));
+    linkedinEl.addEventListener("blur", () => setInvalid(linkedinEl, linkedinErr, !isValidLinkedIn(linkedinEl.value)));
 
-    function notesHasLinks(notes) {
-      const s = String(notes || "").toLowerCase();
-      return s.includes("http://") || s.includes("https://") || s.includes("www.");
-    }
+    resumeEl.addEventListener("change", () => {
+      const file = resumeEl.files && resumeEl.files[0];
+      const MAX_BYTES = 5 * 1024 * 1024;
+      const bad = !file || !isPdfFile(file) || file.size > MAX_BYTES;
+      setInvalid(resumeEl, resumeErr, bad);
+    });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const fd = new FormData(form);
+      const GENERIC_MSG =
+        "Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.";
 
-      // Honeypot check
-      const honey = String(fd.get("website") || "").trim();
-      if (honey) {
-        // silent-ish success message (don’t help bots)
-        showMessage("Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.", true);
-        return;
-      }
+      // Reset inline errors first
+      setInvalid(firstNameEl, firstErr, false);
+      setInvalid(lastNameEl, lastErr, false);
+      setInvalid(emailEl, emailErr, false);
+      setInvalid(phoneEl, phoneErr, false);
+      setInvalid(roleEl, roleErr, false);
+      setInvalid(cityEl, cityErr, false);
+      setInvalid(stateEl, stateErr, false);
+      setInvalid(startEl, startErr, false);
+      setInvalid(linkedinEl, linkedinErr, false);
+      setInvalid(resumeEl, resumeErr, false);
 
-      // Minimum time-on-page check
-      const elapsedSec = (Date.now() - pageLoadedAt) / 1000;
-      if (elapsedSec < MIN_SECONDS_ON_PAGE) {
-        showMessage("Please review your application for a moment, then submit again.", false);
-        return;
-      }
+      // Validate required fields
+      let hasErrors = false;
 
-      const firstName = String(fd.get("firstName") || "").trim();
-      const lastName  = String(fd.get("lastName") || "").trim();
-      const email     = String(fd.get("email") || "").trim();
-      const phone     = String(fd.get("phone") || "").trim();
-      const role      = String(fd.get("role") || "").trim();
-      const linkedin  = String(fd.get("linkedin") || "").trim();
-      const notes     = String(fd.get("notes") || "").trim();
+      if (!String(firstNameEl.value || "").trim()) { setInvalid(firstNameEl, firstErr, true); hasErrors = true; }
+      if (!String(lastNameEl.value || "").trim())  { setInvalid(lastNameEl, lastErr, true); hasErrors = true; }
 
-      // Basic validation
-      if (!firstName || !lastName) {
-        showMessage("Please enter your first and last name.", false);
-        return;
-      }
-      if (!isValidEmail(email)) {
-        showMessage("Please enter a valid email address.", false);
-        return;
-      }
-      if (!isValidPhone(phone)) {
-        showMessage("Please enter a valid phone number (minimum 10 digits).", false);
-        return;
-      }
-      if (!role) {
-        showMessage("Please select a Field of Interest.", false);
-        return;
-      }
-      if (BLOCK_LINKS_IN_NOTES && notesHasLinks(notes)) {
-        showMessage("Please remove links from Notes and try again.", false);
-        return;
+      if (!isValidEmail(emailEl.value))            { setInvalid(emailEl, emailErr, true); hasErrors = true; }
+      if (!isValidPhone(phoneEl.value))           { setInvalid(phoneEl, phoneErr, true); hasErrors = true; }
+
+      if (!String(roleEl.value || "").trim())      { setInvalid(roleEl, roleErr, true); hasErrors = true; }
+
+      if (!String(cityEl.value || "").trim())      { setInvalid(cityEl, cityErr, true); hasErrors = true; }
+      if (!String(stateEl.value || "").trim())     { setInvalid(stateEl, stateErr, true); hasErrors = true; }
+
+      if (!String(startEl.value || "").trim())     { setInvalid(startEl, startErr, true); hasErrors = true; }
+
+      if (!isValidLinkedIn(linkedinEl.value))      { setInvalid(linkedinEl, linkedinErr, true); hasErrors = true; }
+
+      const file = resumeEl.files && resumeEl.files[0];
+      const MAX_BYTES = 5 * 1024 * 1024;
+      if (!file || !isPdfFile(file) || file.size > MAX_BYTES) {
+        setInvalid(resumeEl, resumeErr, true);
+        hasErrors = true;
       }
 
-      const file = fd.get("resumeFile");
-      if (!file || !file.name) {
-        showMessage("Please attach a resume file.", false);
-        return;
-      }
-
-      const MAX_BYTES = 5 * 1024 * 1024; // 5MB
-      if (file.size > MAX_BYTES) {
-        showMessage("Please upload a resume under 5MB.", false);
+      if (hasErrors) {
+        showMessage("Please review the highlighted fields and try again.", false);
         return;
       }
 
       btn.disabled = true;
       btn.textContent = "Submitting…";
 
-      const GENERIC_MSG =
-        "Thanks — if you don’t receive a confirmation email within a few minutes, please resubmit.";
-
       try {
         const payload = {
-          firstName,
-          lastName,
-          email,
-          role,
-          notes,
-          phone,
-          linkedin,
-          source: "Website",
-          fileName: file.name,
-          mimeType: file.type || "application/octet-stream",
-          fileBase64: await fileToBase64(file),
+          firstName: firstNameEl.value,
+          lastName:  lastNameEl.value,
+          email:     emailEl.value,
+          role:      roleEl.value,
+          notes:     (document.getElementById("notes").value || ""),
+          phone:     (phoneEl.value || ""),
+          linkedin:  (linkedinEl.value || ""),
+          source:    "Website",
 
-          // Optional metadata (server can ignore)
-          clientTimeOnPageSec: Math.round(elapsedSec),
-          clientUserAgent: navigator.userAgent || ""
+          // NEW fields requested
+          city:      cityEl.value,
+          state:     stateEl.value,
+          startDate: startEl.value,
+
+          fileName:  file.name,
+          mimeType:  file.type || "application/pdf",
+          fileBase64: await fileToBase64(file)
         };
 
         const res = await fetch(WEB_APP_URL, {
@@ -450,13 +647,15 @@
           body: JSON.stringify(payload)
         });
 
-        const json = await res.json();
+        // If Apps Script returns non-JSON (rare), this avoids hard crash
+        let json = null;
+        try { json = await res.json(); } catch (_) {}
 
         if (json && json.ok) {
           form.reset();
           showMessage(json.message || "Thanks — your application was submitted successfully.", true);
         } else {
-          // keep ok=true here to avoid scaring candidates with a red error style
+          // keep ok=true to avoid “red error” for candidates
           showMessage((json && json.message) || GENERIC_MSG, true);
         }
       } catch (err) {
