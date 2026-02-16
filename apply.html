@@ -234,7 +234,7 @@
               <input id="phone" name="phone" autocomplete="tel" placeholder="(Optional) Phone number" />
             </div>
 
-            <!-- ✅ UPDATED ROLE OPTIONS -->
+            <!-- ✅ UPDATED ROLE OPTIONS (removed "Other") -->
             <div class="field">
               <label for="role">Field of Interest</label>
               <select id="role" name="role" required>
@@ -243,8 +243,8 @@
                 <option>Growth Marketing</option>
                 <option>Software Engineering</option>
                 <option>MLOps / AI Infrastructure</option>
-                <option>Other</option>
               </select>
+              <div class="hint">Choose the closest match — we’ll route your application to the right team.</div>
             </div>
 
             <div class="field">
@@ -301,7 +301,7 @@
           <a href="https://www.matternenergy.com/_files/ugd/b6e4c6_e5cb72dd1079424db93e725d8b8393d2.pdf" target="_blank" rel="noopener noreferrer">Terms of Use</a>
         </div>
 
-        <div class="copy">© 2025 by Matter and Energy, LLC. All rights reserved.</div>
+        <div class="copy">© 2026 by Matter and Energy, LLC. All rights reserved.</div>
       </div>
       <div></div>
     </div>
@@ -381,6 +381,7 @@
           form.reset();
           showMessage(json.message || "Thanks — your application was submitted successfully.", true);
         } else {
+          // keep ok=true here to avoid scaring candidates with a red error style
           showMessage((json && json.message) || GENERIC_MSG, true);
         }
       } catch (err) {
