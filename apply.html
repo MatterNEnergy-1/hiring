@@ -234,7 +234,7 @@
               <input id="phone" name="phone" autocomplete="tel" placeholder="(Optional) Phone number" />
             </div>
 
-            <!-- ✅ UPDATED ROLE OPTIONS (removed "Other") -->
+            <!-- ✅ UPDATED ROLE OPTIONS -->
             <div class="field">
               <label for="role">Field of Interest</label>
               <select id="role" name="role" required>
@@ -300,14 +300,14 @@
           <a href="https://www.matternenergy.com/_files/ugd/b6e4c6_e5cb72dd1079424db93e725d8b8393d2.pdf" target="_blank" rel="noopener noreferrer">Terms of Use</a>
         </div>
 
-        <div class="copy">© 2026 by Matter and Energy, LLC. All rights reserved.</div>
+        <div class="copy">© 2025 by Matter and Energy, LLC. All rights reserved.</div>
       </div>
       <div></div>
     </div>
   </footer>
 
   <script>
-    // ✅ UPDATED Apps Script Web App URL (redeployed)
+    // Your Apps Script Web App URL
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzb_ouYN_axb4_jbD0mXWeCYrMPCgnrT7JAcblzUy00B_9uJiOjKqtrBdDXub5Xw6-_/exec";
 
     const form = document.getElementById("appForm");
@@ -370,24 +370,11 @@
 
         const res = await fetch(WEB_APP_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-            "X-Request-Source": "github-apply"
-          },
-          body: JSON.stringify(payload),
-          redirect: "follow"
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
         });
 
-        // Read text first, then parse JSON (more robust than res.json())
-        const raw = await res.text();
-        let json = null;
-        try {
-          json = JSON.parse(raw);
-        } catch (_) {
-          console.error("Non-JSON response:", raw);
-          showMessage(GENERIC_MSG, true);
-          return;
-        }
+        const json = await res.json();
 
         if (json && json.ok) {
           form.reset();
@@ -405,4 +392,3 @@
   </script>
 </body>
 </html>
-
